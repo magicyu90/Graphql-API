@@ -1,10 +1,7 @@
 import mongoose from 'mongoose';
 
-let userSchema = new mongoose.Schema({
+let UserSchema = new mongoose.Schema({
 
-    id: {
-        type: Number
-    },
     name: {
         type: String
     },
@@ -13,6 +10,9 @@ let userSchema = new mongoose.Schema({
     },
     email: {
         type: String, require: true
+    },
+    createdAt: {
+        createdAt: {type: Date, default: Date.now}
     }
 
 }, {
@@ -20,4 +20,15 @@ let userSchema = new mongoose.Schema({
 
 });
 
-export default mongoose.model('User', userSchema);
+
+UserSchema.pre('save', next=> {
+
+    let now = new Date();
+    if (!this.createdAt) {
+        this.createdAt = now;
+    }
+    next();
+});
+
+
+export default mongoose.model('User', UserSchema);
