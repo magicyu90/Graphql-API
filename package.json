@@ -1,12 +1,21 @@
 {
   "name": "hugographqlserver",
   "version": "1.0.0",
-  "description": "",
+  "description": "Graphql node.js learning&test",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magicyu90/HugoGraphqlServer.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "keywords": [
+    "Node.js",
+    "Javascript",
+    "GraphQL"
+  ],
+  "author": "Hugo",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -15,8 +24,11 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "express-graphql": "^0.6.1",
     "graphql": "^0.8.1",
+    "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.8"
   }
 }
