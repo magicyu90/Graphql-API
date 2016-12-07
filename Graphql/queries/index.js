@@ -1,9 +1,9 @@
-import {findUserByEmail, getAllUsers} from './userqueries';
+import {findUserByEmail, getAllUsers,getToken} from './userqueries';
 
 //export  default UserQuery;
 
 export default  {
 
-    findUserByEmail, getAllUsers
+    findUserByEmail, getAllUsers,getToken
 }
 

@@ -8,7 +8,7 @@ let app = express();
 app.use('/graphql', graphqlHTTP(req => ({
     schema,
     pretty: true,
-    graphiqlgit
+    graphiql: true
 })));
 
 mongoose.Promise = global.Promise;
