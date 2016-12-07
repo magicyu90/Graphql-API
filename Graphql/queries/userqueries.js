@@ -10,8 +10,9 @@ import  UserModel from '../../Models/user';
 import  userType from '../types/user';
 
 
-export default {
+module.exports={
     findUserByEmail: {
+        description:"Find user by Email",
         type: userType,
         args: {
             email: {
@@ -26,11 +27,12 @@ export default {
         }
     },
     getAllUsers: {
+        description:"Get all users",
         type: new GraphQLList(userType),
         resolve: ()=> {
             return UserModel.find({});
         }
     }
-};
+}
 
 

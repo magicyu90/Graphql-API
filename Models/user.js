@@ -9,10 +9,13 @@ let UserSchema = new mongoose.Schema({
         type: String, required: true
     },
     email: {
-        type: String, require: true
+        type: String, required: true
     },
-    createdAt: {
-        createdAt: {type: Date, default: Date.now}
+    // createdAt: {
+    //     createdAt: {type: Date, default: Date.now}
+    // },
+    address: {
+        type: String, required: true
     }
 
 }, {
@@ -21,14 +24,14 @@ let UserSchema = new mongoose.Schema({
 });
 
 
-UserSchema.pre('save', next=> {
-
-    let now = new Date();
-    if (!this.createdAt) {
-        this.createdAt = now;
-    }
-    next();
-});
+// UserSchema.pre('save', next => {
+//
+//     let now = new Date();
+//     if (!this.createdAt) {
+//         this.createdAt = now;
+//     }
+//     next();
+// });
 
 
 export default mongoose.model('User', UserSchema);
