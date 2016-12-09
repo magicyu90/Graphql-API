@@ -8,7 +8,7 @@ const commonDesign = {
         required: [true, 'Lack of user'],
     },
     measuredBy: Schema.ObjectId,
-    measuredAt: {
+    MDate: {
         type: Date,
         required: [true, 'Measurement date is required'],
     },

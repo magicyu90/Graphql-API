@@ -1,15 +1,13 @@
 import express from 'express';
-import graphqlHTTP from 'express-graphql';
+import {graphqlExpress} from 'graphql-server-express';
 import mongoose from 'mongoose';
-import schema from './graphql';
+import schema from './src/graphql';
 import {mongoConfig} from './config';
 import bodyParser from 'body-parser';
-let app = express();
-app.use('/graphql', graphqlHTTP(req => ({
-    schema,
-    pretty: true,
-    graphiql: true
-})));
+import { graphiqlExpress } from 'graphql-server-express';
+
+
+var graphQLServer = express();
 
 mongoose.Promise = global.Promise;
 //connect to mongodb
@@ -23,8 +21,14 @@ mongoose.connect(mongoConfig.development, (err) => {
     }
 });
 
+graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress({
+    schema: schema,
+    context: {}
+}));
+graphQLServer.use('/graphiql', graphiqlExpress({endpointURL: '/graphql'}));
 
-let server = app.listen(8080, () => {
+
+let server = graphQLServer.listen(8080, () => {
 
     console.log('listening at port', server.address().port);
 });

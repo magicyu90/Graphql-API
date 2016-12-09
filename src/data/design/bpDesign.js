@@ -43,19 +43,19 @@ const bpDesign = {
             required: [true, 'Lack of blood pressure unit']
         }
     },
-    heartRate: {
-        value: {
-            type: Number,
-            required: [true, 'Lack of hear rate'],
-            min: 1,
-            max: 300
-        },
-        unit: {
-            type: String,
-            enum: ['beats/min'],
-            required: [true, 'Lack of hear rate unit']
-        }
-    },
+    // heartRate: {
+    //     value: {
+    //         type: Number,
+    //         required: [true, 'Lack of hear rate'],
+    //         min: 1,
+    //         max: 300
+    //     },
+    //     unit: {
+    //         type: String,
+    //         enum: ['beats/min'],
+    //         required: [true, 'Lack of hear rate unit']
+    //     }
+    // },
     //todo effective_time_frame?
     //effective_time_frame:effective_time_frame,
     body_posture: {
