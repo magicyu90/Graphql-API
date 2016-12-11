@@ -12,6 +12,9 @@ const userDesign = {
     },
     role: {
         type: String
+    },
+    token:{
+        type:String
     }
 }
 
