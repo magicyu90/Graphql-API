@@ -23,6 +23,7 @@ const ErrorMsg = {
     register_email_missing: 'You need an email to register an account',
     register_id_exists: 'A user with that "$0" already exists',
     // login_fail: 'Failed to login because the token was invalid',
+    username_duplicated:'The username is repeat, please change that',
 
     // DEPRECATED (Until I retouch the measurement queries)
     not_authorized_to_view: 'You are not authorized to view this data',
@@ -84,12 +85,10 @@ const ErrorMsg = {
 };
 
 export default function(name) {
-    // Do logging here
-    // Do logging here
-    // Do logging here
+
     let msg = ErrorMsg[name] || name;
 
     const err = new GraphQLError(msg);
 
-    throw err;
+    return err;
 };

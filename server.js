@@ -5,7 +5,7 @@ import KoaRouter from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose';
 import schema from './src/graphql';
-import {mongoConfig} from './config';
+import {mongoConfig} from './src/config';
 import {fromLogin} from './src/logic/authService';
 
 
@@ -27,14 +27,19 @@ mongoose.connect(mongoConfig.development, (err) => {
 });
 
 
+router.all('/graphiql', convert(graphqlHTTP(async function (req) {
 
-router.all('/graphiql',convert(graphqlHTTP({
-
-    schema:schema,
-    graphiql:true,
-    pretty:true
+    const viewer = await fromLogin({name: "Hugo", password: "123456"});
+    console.log('viewer:'+JSON.stringify(viewer));
+    return {
+        schema: schema,
+        graphiql: true,
+        pretty: true,
+        context: {
+            viewer: viewer
+        }
+    }
 })));
-
 
 
 app.use(router.routes()).use(router.allowedMethods());

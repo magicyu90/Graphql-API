@@ -6,7 +6,6 @@ import QueryLoader from '../lib/queryLoader';
 
 export class Viewer {
 
-
     role: string;
     level: number;
     isLoggedIn: boolean;
@@ -23,7 +22,6 @@ export class Viewer {
 
         Object.freeze(this);
     }
-
 
     static resolveRole(viewer: Object): number {
 
@@ -42,6 +40,8 @@ export class Viewer {
 
 export function viewerAuth(viewer: Viewer, doc: Object, action: string) {
 
+
+    console.log('enter viewerAuth...');
     if (viewer && doc) {
         const level = Viewer.resolveRole(viewer);
 
@@ -49,21 +49,21 @@ export function viewerAuth(viewer: Viewer, doc: Object, action: string) {
             return true;
         }
         else {
-
             throwError('not_authorized');
         }
     }
 }
 
 type LoginFromInput={
-    username:string,
+    name:string,
     password:string
 }
 
-export async function fromLogin({username, password}:LoginFromInput): Object {
+export async function fromLogin({name, password}:LoginFromInput): Object {
+
 
     const user = await QueryLoader.load(
-        UserModel.findOne({username: username, password: password}).lean()
+        UserModel.findOne({name: name, password: password}).lean()
     )
 
     let viewer = new Viewer(user);

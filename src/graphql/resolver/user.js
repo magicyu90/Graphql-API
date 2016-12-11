@@ -2,11 +2,12 @@ import {UserModel} from '../../data/schema/userSchema';
 import jwt from 'jsonwebtoken';
 import {jwtConfig} from '../../config';
 import UserService from '../../logic/userService';
+import throwError from '../../lib/throwError';
 
-export  const UserResolver= {
+export const UserResolver = {
 
     Query: {
-        login: async (root, args,{viewer}) => {
+        login: async(root, args, {viewer}) => {
             // return new Promise((resolve, reject) => {
             //     UserModel.findOne({
             //         email: args.email
@@ -21,7 +22,9 @@ export  const UserResolver= {
             //     })
             //
             // });
-           await UserService.login(args,viewer);
+            const result = await UserService.login(args, viewer);
+
+            return result;
         }
     },
 
@@ -50,7 +53,11 @@ export  const UserResolver= {
                             }
                         })
                     }
+                    else {
+                        reject(throwError('username_duplicated'));
+                    }
                 }).catch((err) => {
+                    reject(err);
                     console.log(err);
                 });
             });
