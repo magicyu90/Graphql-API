@@ -1,30 +1,32 @@
 import {UserModel} from '../../data/schema/userSchema';
 import jwt from 'jsonwebtoken';
 import {jwtConfig} from '../../config';
+import UserService from '../../logic/userService';
 
 export  const UserResolver= {
 
     Query: {
-        login: (root, args) => {
-            return new Promise((resolve, reject) => {
-                UserModel.findOne({
-                    email: args.email
-                }).then((userData) => {
-                    if (userData && userData._doc) {
-
-                        console.log('user' + args.email + ' login in');
-                        resolve({
-                            token: jwt.sign(userData._doc,jwtConfig.secret)
-                        })
-                    }
-                })
-
-            });
+        login: async (root, args,{viewer}) => {
+            // return new Promise((resolve, reject) => {
+            //     UserModel.findOne({
+            //         email: args.email
+            //     }).then((userData) => {
+            //         if (userData && userData._doc) {
+            //
+            //             console.log('user' + args.email + ' login in');
+            //             resolve({
+            //                 token: jwt.sign(userData._doc,jwtConfig.secret)
+            //             })
+            //         }
+            //     })
+            //
+            // });
+           await UserService.login(args,viewer);
         }
     },
 
     Mutation: {
-
+        //call logic code
         register: (root, args) => {
             return new Promise((resolve, reject) => {
 
@@ -33,7 +35,7 @@ export  const UserResolver= {
                         UserModel.create({
                             name: args.name,
                             email: args.email,
-                            username: args.username,
+                            role: args.role,
                             password: args.password
                         }).then((user) => {
                             if (user && user._doc) {

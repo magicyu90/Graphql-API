@@ -1,12 +1,12 @@
 // @flow
 
 import throwError from '../lib/throwError';
-import UserDB from '../data/schema/userSchema';
+import {UserModel} from '../data/schema/userSchema';
 import QueryLoader from '../lib/queryLoader';
 
 export class Viewer {
 
-    id: ?string;
+
     role: string;
     level: number;
     isLoggedIn: boolean;
@@ -17,11 +17,9 @@ export class Viewer {
         this.level = Viewer.resolveRole(obj);
         this.isLoggedIn = obj && obj._id;
 
-        if (obj) {
-            const doc = obj._doc || obj;
-            this.id = doc._id;
-            this.token = doc.token;
-        }
+        this.role= obj.role;
+        this.token= obj.token;
+
 
         Object.freeze(this);
     }
@@ -38,9 +36,11 @@ export class Viewer {
 
         return roles[viewer.role];
     }
+
+
 }
 
-export function viewerAuth(viewer: Viewer, doc: Object, action: string): boolean {
+export function viewerAuth(viewer: Viewer, doc: Object, action: string) {
 
     if (viewer && doc) {
         const level = Viewer.resolveRole(viewer);
@@ -62,11 +62,10 @@ type LoginFromInput={
 
 export async function fromLogin({username, password}:LoginFromInput): Object {
 
-
-    const user= await QueryLoader.load(
-        UserDB.findOne({username:username,password:password}).lean()
+    const user = await QueryLoader.load(
+        UserModel.findOne({username: username, password: password}).lean()
     )
 
-    let viewer=new Viewer(user);
+    let viewer = new Viewer(user);
     return viewer;
 }

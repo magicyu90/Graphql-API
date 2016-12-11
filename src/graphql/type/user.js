@@ -4,7 +4,7 @@ export const UserType = `
        name:String,
        password:String,
        email:String,
-       level:Int
+       role:String
     }
     
     type Token{
@@ -20,7 +20,7 @@ export const UserType = `
           name:String!
           email:String!
           password:String!
-          level:Int!
+          role:String!
        ):Token
     }
 `;

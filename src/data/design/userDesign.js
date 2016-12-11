@@ -10,8 +10,8 @@ const userDesign = {
     email: {
         type: String
     },
-    level: {
-        type: Number
+    role: {
+        type: String
     }
 }
 
