@@ -1,14 +1,14 @@
 const userDesign = {
 
     name: {
-        type: String,
-        unique: true
+        type: String
     },
     password: {
         type: String
     },
     email: {
-        type: String
+        type: String,
+        unique:true
     },
     role: {
         type: String

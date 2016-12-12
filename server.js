@@ -8,9 +8,14 @@ import schema from './src/graphql';
 import {mongoConfig} from './src/config';
 import {fromLogin} from './src/logic/authService';
 
+import passport from './src/data/passport';
+
 
 const app = new Koa();
 const router = new KoaRouter();
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(convert(bodyParser()));
 
@@ -29,14 +34,14 @@ mongoose.connect(mongoConfig.development, (err) => {
 
 router.all('/graphiql', convert(graphqlHTTP(async function (req) {
 
-    const viewer = await fromLogin({name: "Hugo", password: "123456"});
-    console.log('viewer:'+JSON.stringify(viewer));
+    const viewerFromToken = await fromLogin({name: "Hugo", password: "123456"});
+    console.log('viewer:' + JSON.stringify(viewerFromToken));
     return {
         schema: schema,
         graphiql: true,
         pretty: true,
         context: {
-            viewer: viewer
+            viewer: viewerFromToken
         }
     }
 })));

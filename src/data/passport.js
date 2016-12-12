@@ -1,7 +1,10 @@
+
 import passport from 'koa-passport';
-import {Strategy} from 'passport-local';
-import UserModel from './models/userModel';
+import {UserModel} from '../data/models/userModel';
+import { Strategy } from 'passport-local';
 
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 passport.use(new Strategy(UserModel.authenticate()));
+
+export default passport;

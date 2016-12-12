@@ -12,7 +12,8 @@ export const UserType = `
     }
     
     type Query {
-        login(email:String,password:String):Token
+        login(email:String,password:String):Token,
+        test(message:String):String
     }
     
     type Mutation{
